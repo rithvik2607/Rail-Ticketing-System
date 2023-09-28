@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_28_035848) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_28_045302) do
   create_table "passengers", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -18,6 +18,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_035848) do
     t.string "phone_number"
     t.string "address"
     t.string "credit_card_information"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trains", force: :cascade do |t|
+    t.string "train_number"
+    t.string "departure_station"
+    t.string "termination_station"
+    t.datetime "departure_date"
+    t.datetime "departure_time"
+    t.datetime "arrival_date"
+    t.datetime "arrival_time"
+    t.integer "ticket_price"
+    t.integer "train_capacity"
+    t.integer "number_of_seats_left"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

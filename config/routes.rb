@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trains
   resources :passengers
   root 'home#index'
   resources :sessions, only: [:new, :create, :destroy]

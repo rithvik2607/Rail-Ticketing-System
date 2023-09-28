@@ -17,7 +17,7 @@ class PassengersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create passenger" do
     assert_difference("Passenger.count") do
-      post passengers_url, params: { passenger: { address: @passenger.address, email: @passenger.email, name: @passenger.name, passenger_id: @passenger.passenger_id, password: @passenger.password, phoneNumber: @passenger.phoneNumber } }
+      post passengers_url, params: { passenger: { address: @passenger.address, credit_card_information: @passenger.credit_card_information, email: @passenger.email, name: @passenger.name, password_digest: @passenger.password_digest, phone_number: @passenger.phone_number } }
     end
 
     assert_redirected_to passenger_url(Passenger.last)
@@ -34,7 +34,7 @@ class PassengersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update passenger" do
-    patch passenger_url(@passenger), params: { passenger: { address: @passenger.address, email: @passenger.email, name: @passenger.name, passenger_id: @passenger.passenger_id, password: @passenger.password, phoneNumber: @passenger.phoneNumber } }
+    patch passenger_url(@passenger), params: { passenger: { address: @passenger.address, credit_card_information: @passenger.credit_card_information, email: @passenger.email, name: @passenger.name, password_digest: @passenger.password_digest, phone_number: @passenger.phone_number } }
     assert_redirected_to passenger_url(@passenger)
   end
 

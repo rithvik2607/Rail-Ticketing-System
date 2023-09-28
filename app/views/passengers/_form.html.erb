@@ -12,11 +12,6 @@
   <% end %>
 
   <div>
-    <%= form.label :passenger_id, style: "display: block" %>
-    <%= form.text_field :passenger_id %>
-  </div>
-
-  <div>
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
   </div>
@@ -32,13 +27,23 @@
   </div>
 
   <div>
-    <%= form.label :phoneNumber, style: "display: block" %>
-    <%= form.text_field :phoneNumber %>
+    <%= form.label :password_confirmation, style: "display: block" %>
+    <%= form.text_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= form.label :phone_number, style: "display: block" %>
+    <%= form.text_field :phone_number %>
   </div>
 
   <div>
     <%= form.label :address, style: "display: block" %>
     <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :credit_card_information, style: "display: block" %>
+    <%= form.text_field :credit_card_information %>
   </div>
 
   <div>

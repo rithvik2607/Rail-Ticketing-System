@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :passengers, :trains, :tickets
+  resources :admins, :passengers, :trains, :tickets
   root 'home#index'
   resources :sessions, only: [:new, :create, :destroy]
   get 'signup', to: "passengers#new", as: 'signup'

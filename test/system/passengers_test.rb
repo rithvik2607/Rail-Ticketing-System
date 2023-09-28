@@ -15,11 +15,11 @@ class PassengersTest < ApplicationSystemTestCase
     click_on "New passenger"
 
     fill_in "Address", with: @passenger.address
+    fill_in "Credit card information", with: @passenger.credit_card_information
     fill_in "Email", with: @passenger.email
     fill_in "Name", with: @passenger.name
-    fill_in "Passenger", with: @passenger.passenger_id
-    fill_in "Password", with: @passenger.password
-    fill_in "Phonenumber", with: @passenger.phoneNumber
+    fill_in "Password digest", with: @passenger.password_digest
+    fill_in "Phone number", with: @passenger.phone_number
     click_on "Create Passenger"
 
     assert_text "Passenger was successfully created"
@@ -31,11 +31,11 @@ class PassengersTest < ApplicationSystemTestCase
     click_on "Edit this passenger", match: :first
 
     fill_in "Address", with: @passenger.address
+    fill_in "Credit card information", with: @passenger.credit_card_information
     fill_in "Email", with: @passenger.email
     fill_in "Name", with: @passenger.name
-    fill_in "Passenger", with: @passenger.passenger_id
-    fill_in "Password", with: @passenger.password
-    fill_in "Phonenumber", with: @passenger.phoneNumber
+    fill_in "Password digest", with: @passenger.password_digest
+    fill_in "Phone number", with: @passenger.phone_number
     click_on "Update Passenger"
 
     assert_text "Passenger was successfully updated"

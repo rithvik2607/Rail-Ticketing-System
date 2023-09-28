@@ -1,0 +1,13 @@
+<p id=”notice”><%= notice %></p>
+<h1>Rail Ticketing System</h1>
+<p>Book rail tickets at the snap of your finger</p>
+<% if current_user %>
+  Logged in as <%= current_user.name %>.
+  <%#= link_to "View all products", products_path %><br>
+  <%#= link_to 'Add credit card', new_credit_card_path %><br>
+  <%#= link_to 'View purchase history', transactions_path %><br>
+  <%= link_to "Logout", logout_path %>
+<% else %>
+  <%= link_to "Signup", signup_path %> or
+  <%= link_to "Login", login_path %>
+<% end %>

@@ -1,4 +1,5 @@
 class PassengersController < ApplicationController
+  skip_before_action :authorized, only: [:new, :create]
   before_action :set_passenger, only: %i[ show edit update destroy ]
 
   # GET /passengers or /passengers.json
@@ -65,6 +66,6 @@ class PassengersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def passenger_params
-      params.require(:passenger).permit(:passenger_id, :name, :email, :password, :phoneNumber, :address)
+      params.require(:passenger).permit(:name, :email, :password, :password_confirmation, :phone_number, :address, :credit_card_information)
     end
 end

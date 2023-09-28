@@ -10,29 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_27_231211) do
-  create_table "credit_cards", force: :cascade do |t|
-    t.string "name"
-    t.string "card_number"
-    t.date "expiration_date"
-    t.string "cvv"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "passenger_id", null: false
-    t.index ["passenger_id"], name: "index_credit_cards_on_passenger_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_09_28_035848) do
   create_table "passengers", force: :cascade do |t|
-    t.string "passenger_id"
     t.string "name"
     t.string "email"
-    t.string "password"
-    t.string "phoneNumber"
+    t.string "password_digest"
+    t.string "phone_number"
     t.string "address"
+    t.string "credit_card_information"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["passenger_id"], name: "index_passengers_on_passenger_id", unique: true
   end
 
-  add_foreign_key "credit_cards", "passengers"
 end

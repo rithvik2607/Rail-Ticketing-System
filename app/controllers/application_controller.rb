@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   before_action :authorized
   helper_method :logged_in?
+  add_flash_types :info
 
   def current_user
     if session[:user_id]

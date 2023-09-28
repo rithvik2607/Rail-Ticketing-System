@@ -50,10 +50,11 @@ class PassengersController < ApplicationController
 
   # DELETE /passengers/1 or /passengers/1.json
   def destroy
+    session[:user_id] = nil
     @passenger.destroy
-
+    
     respond_to do |format|
-      format.html { redirect_to passengers_url, notice: "Passenger was successfully destroyed." }
+      format.html { redirect_to logout_path, notice: "Passenger was successfully destroyed." }
       format.json { head :no_content }
     end
   end

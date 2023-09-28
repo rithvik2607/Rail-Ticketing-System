@@ -2,9 +2,16 @@
 
 <%= render @passenger %>
 
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
 <div>
-  <%= link_to "Edit this passenger", edit_passenger_path(@passenger) %> |
-  <%= link_to "Back to passengers", passengers_path %>
+  <%= link_to "Edit this passenger", edit_passenger_path(@passenger) %>
+
+  <br>
 
   <%= button_to "Destroy this passenger", @passenger, method: :delete %>
 </div>

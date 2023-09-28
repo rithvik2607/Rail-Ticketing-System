@@ -6,6 +6,7 @@
   <%#= link_to "View all products", products_path %><br>
   <%#= link_to 'Add credit card', new_credit_card_path %><br>
   <%#= link_to 'View purchase history', transactions_path %><br>
+  <%= link_to 'View Profile', passenger_path(current_user.id) %>
   <%= link_to "Logout", logout_path %>
 <% else %>
   <%= link_to "Signup", signup_path %> or

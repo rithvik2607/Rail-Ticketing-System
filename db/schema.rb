@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema[7.0].define(version: 2023_09_28_045828) do
   create_table "passengers", force: :cascade do |t|
     t.string "name"
@@ -19,6 +18,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_045828) do
     t.string "phone_number"
     t.string "address"
     t.string "credit_card_information"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "confirmation_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,9 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_045828) do
     t.integer "ticket_price"
     t.integer "train_capacity"
     t.integer "number_of_seats_left"
-
-  create_table "tickets", force: :cascade do |t|
-    t.string "confirmation_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

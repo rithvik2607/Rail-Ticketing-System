@@ -1,52 +1,34 @@
 <div id="<%= dom_id train %>">
-  <p>
-    <strong>Train number:</strong>
-    <%= train.train_number %>
-  </p>
-
-  <p>
-    <strong>Departure station:</strong>
-    <%= train.departure_station %>
-  </p>
-
-  <p>
-    <strong>Termination station:</strong>
-    <%= train.termination_station %>
-  </p>
-
-  <p>
-    <strong>Departure date:</strong>
-    <%= train.departure_date %>
-  </p>
-
-  <p>
-    <strong>Departure time:</strong>
-    <%= train.departure_time %>
-  </p>
-
-  <p>
-    <strong>Arrival date:</strong>
-    <%= train.arrival_date %>
-  </p>
-
-  <p>
-    <strong>Arrival time:</strong>
-    <%= train.arrival_time %>
-  </p>
-
-  <p>
-    <strong>Ticket price:</strong>
-    <%= train.ticket_price %>
-  </p>
-
-  <p>
-    <strong>Train capacity:</strong>
-    <%= train.train_capacity %>
-  </p>
-
-  <p>
-    <strong>Number of seats left:</strong>
-    <%= train.number_of_seats_left %>
-  </p>
-
+  <table class="table">
+    <tr>
+      <th>Train number:</th>
+      <td><%= train.train_number %></td>
+      <th>Departure station:</th>
+      <td><%= train.departure_station %></td>
+    </tr>
+    <tr>
+      <th>Termination station:</th>
+      <td><%= train.termination_station %></td>
+      <th>Departure date:</th>
+      <td><%= train.departure_date %></td>
+    </tr>
+    <tr>
+      <th>Departure time:</th>
+      <td><%= train.departure_time.strftime('%H:%M') %></td>
+      <th>Arrival date:</th>
+      <td><%= train.arrival_date %></td>
+    </tr>
+    <tr>
+      <th>Arrival time:</th>
+      <td><%= train.arrival_time.strftime('%H:%M') %></td>
+      <th>Ticket price:</th>
+      <td><%= train.ticket_price %></td>
+    </tr>
+    <tr>
+      <th>Train capacity:</th>
+      <td><%= train.train_capacity %></td>
+      <th>Number of seats left:</th>
+      <td><%= train.number_of_seats_left %></td>
+    </tr>
+  </table>
 </div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
   resources :admins, :passengers, :trains, :tickets
   root 'home#index'
   resources :sessions, only: [:new, :create, :destroy]

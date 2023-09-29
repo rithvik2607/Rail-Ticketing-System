@@ -59,6 +59,20 @@ class PassengersController < ApplicationController
     end
   end
 
+  def viewTrains
+    time = Time.now
+    trainController = TrainsController.new
+    trains = trainController.index
+    @res = []
+    for i in 1 ... trains.length
+      combined_datetime = DateTime.new(trains[i].departure_date.year, trains[i].departure_date.month, trains[i].departure_date.day, trains[i].departure_time.hour, trains[i].departure_time.min, trains[i].departure_time.sec)
+      if combined_datetime > time and trains[i].number_of_seats_left > 0
+        @res.append(trains[i])
+      end
+    end
+    @res
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_passenger

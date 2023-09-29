@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="RailTicketingSystem: development" uuid="5dc000b4-6cc9-427c-a2d5-01c6699134a6">
+    <data-source source="LOCAL" name="development.sqlite3" uuid="7810268b-74b6-4164-b722-cd8708d3756b">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\HP\OneDrive\Documents\Rushabh\NCSU\OODD\CSC517_Rail_Ticketing_System_Prog2_Team_RRJ_Ruby\db\development.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -1,0 +1,34 @@
+<div id="trainTable">
+  <table border="1">
+    <tr>
+      <th>Train Number</th>
+      <th>Departure Station</th>
+      <th>Termination Station</th>
+      <th>Departure Date</th>
+      <th>Departure Time</th>
+      <th>Arrival Date</th>
+      <th>Arrival Time</th>
+      <th>Ticket Price</th>
+      <th>Train Capacity</th>
+      <th>Number of Seats Left</th>
+      <th>Rating</th>
+      <th>Action</th>
+    </tr>
+    <% @res.each do |train| %>
+      <tr>
+        <td><%= train[:train_number] %></td>
+        <td><%= train[:departure_station] %></td>
+        <td><%= train[:termination_station] %></td>
+        <td><%= train[:departure_date] %></td>
+        <td><%= train[:departure_time] %></td>
+        <td><%= train[:arrival_date] %></td>
+        <td><%= train[:arrival_time] %></td>
+        <td><%= train[:ticket_price] %></td>
+        <td><%= train[:train_capacity] %></td>
+        <td><%= train[:number_of_seats_left] %></td>
+        <td><%= train[:rating] %></td>
+        <td><%= link_to 'Book' %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

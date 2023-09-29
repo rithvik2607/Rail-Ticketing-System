@@ -1,0 +1,2 @@
+admin = Admin.create!(:username => "admin123", :name =>"Admin", :email =>"admin@gmail.com", :password =>"admin123", :phonenumber=>"98
+76543210",:address=>"1234 Admin St", :credit_card_number => "12345")

@@ -2,7 +2,7 @@
 <h1>Rail Ticketing System</h1>
 <p>Book rail tickets at the snap of your finger</p>
 <% if current_user %>
-  <%if current_user.username%>
+  <% if current_user.is_a?(Admin) %>
     Logged in as <%= current_user.name %>.
     <%#= link_to "View all products", products_path %><br>
     <%#= link_to 'Add credit card', new_credit_card_path %><br>

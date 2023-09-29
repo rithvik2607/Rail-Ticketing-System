@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   add_flash_types :info
 
   def current_user
-    if session[:user_id]
+    if session[:is_admin]
+      @current_user = Admin.find(session[:user_id])
+    elsif session[:user_id]
       @current_user ||= Passenger.find(session[:user_id])
     else
       @current_user = nil

@@ -1,0 +1,32 @@
+<div id="ticketTable">
+  <table border="1">
+    <tr>
+      <th>Confirmation Number</th>
+      <th>Train Number</th>
+      <th>Departure Station</th>
+      <th>Termination Station</th>
+      <th>Departure Date</th>
+      <th>Departure Time</th>
+      <th>Arrival Date</th>
+      <th>Arrival Time</th>
+      <th>Ticket Price</th>
+      <th>Action</th>
+    </tr>
+    <% @trips.each do |trip| %>
+      <tr>
+        <td><%= trip.confirmation_number %></td>
+        <td><%= trip.train.train_number %></td>
+        <td><%= trip.train.departure_station %></td>
+        <td><%= trip.train.termination_station %></td>
+        <td><%= trip.train.departure_date %></td>
+        <td><%= trip.train.departure_time.strftime('%H:%M %p') %></td> <!-- Format time as HH:MM AM/PM -->
+        <td><%= trip.train.arrival_date %></td>
+        <td><%= trip.train.arrival_time.strftime('%H:%M %p') %></td> <!-- Format time as HH:MM AM/PM -->
+        <td><%= trip.train.ticket_price %></td>
+        <% if Time.now < DateTime.new(trip.train.departure_date.year, trip.train.departure_date.month, trip.train.departure_date.day, trip.train.departure_time.hour, trip.train.departure_time.min, trip.train.departure_time.sec)  %>
+          <td><%= button_to "Cancel this ticket", @ticket, method: :delete %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

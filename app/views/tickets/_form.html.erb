@@ -11,12 +11,37 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :confirmation_number, style: "display: block" %>
-    <%= form.text_field :confirmation_number %>
+  <p>You are purchasing the ticket: <%= @train.departure_station %> - <%= @train.termination_station %></p>
+  <p>Departing on <%= @train.departure_date %></p>
+
+  <br>
+
+  <div class="field">
+    <%= form.label :total_cost %>
+    <%= form.text_field :total_cost, :id => 'total_cost', :readonly => true, value: @train.ticket_price %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="field">
+    <%= form.hidden_field :train_id, value: @train.id %>
   </div>
+
+  <br>
+
+  <div class="field">
+    <%= form.label "Credit Card Number"%>
+    <%= form.label :value, value: @credit_card %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= form.submit "Confirm Booking" %>
+  </div>
+
+<!--  <script type="text/javascript">-->
+<!--      function calculateTotalPrice() {-->
+<!--          var price = "<%#= @train.ticket_price %>";-->
+<!--          console.log((1.04 * Number(price)).toString());-->
+<!--          document.getElementById('total_cost').value = (1.04 * Number(price)).toString();-->
+<!--      }-->
+<!--  </script>-->
+
 <% end %>

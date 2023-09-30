@@ -26,8 +26,8 @@
         <td><%= train.ticket_price %></td>
         <td><%= train.train_capacity %></td>
         <td><%= train.number_of_seats_left %></td>
-        <!-- You can display the rating here if the issue is resolved -->
-        <td><%= link_to 'Book' %></td>
+        <td><%= train[:rating] %></td>
+        <td><%= link_to 'Book', new_ticket_path(:train_id => train.id) %></td>
       </tr>
     <% end %>
   </table>

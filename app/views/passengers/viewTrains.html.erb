@@ -26,7 +26,7 @@
         <td><%= train.ticket_price %></td>
         <td><%= train.train_capacity %></td>
         <td><%= train.number_of_seats_left %></td>
-        <td><%= train[:rating] %></td>
+        <td><%= train.rating %></td>
         <td><%= link_to 'Book', new_ticket_path(:train_id => train.id) %></td>
       </tr>
     <% end %>

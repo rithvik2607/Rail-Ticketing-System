@@ -1,5 +1,15 @@
 <div id="<%= dom_id review %>">
   <p>
+    <strong>Passenger ID</strong>
+    <%= review.passenger.name %>
+  </p>
+
+  <p>
+    <strong>Train ID</strong>
+    <%= review.train.departure_station %> - <%= review.train.termination_station %>
+  </p>
+
+  <p>
     <strong>Rating:</strong>
     <%= review.rating %>
   </p>

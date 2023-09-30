@@ -116,6 +116,16 @@ class PassengersController < ApplicationController
   def authorized_user?(id)
     logged_in? && @current_user == Passenger.find_by_id(id) 
   end
+  
+  def viewTrips
+    ticketController = TicketsController.new
+    reviewController = ReviewsController.new
+    tickets = ticketController.index
+    reviews = reviewController.index
+    @trips = tickets.select { |ticket| ticket.passenger_id == current_user.id }
+    @reviews = reviews.select { |review| review.passenger_id == current_user.id}
+    @reviews.collect { |review| puts review.train_id }
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

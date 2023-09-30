@@ -11,15 +11,45 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :rating, style: "display: block" %>
-    <%= form.number_field :rating %>
-  </div>
+  <% if @train %>
+    <div>
+      <p>Writing review for train <%= @train.departure_station %> - <%= @train.termination_station %></p>
+      <p>Departed on <%= @train.departure_date %></p>
+    </div>
 
-  <div>
-    <%= form.label :feedback, style: "display: block" %>
-    <%= form.text_field :feedback %>
-  </div>
+    <div class="field">
+      <%= form.hidden_field :train_id, value: @train.id %>
+    </div>
+
+    <div>
+      <%= form.label :rating, style: "display: block" %>
+      <%= form.number_field :rating, in: 1..5 %>
+    </div>
+
+    <div>
+      <%= form.label :feedback, style: "display: block" %>
+      <%= form.text_field :feedback %>
+    </div>
+  <% else %>
+    <div>
+      <p>Editing review for train <%= review.train.departure_station %> - <%= review.train.termination_station %></p>
+      <p>Departed on <%= review.train.departure_date %></p>
+    </div>
+
+    <div class="field">
+      <%= form.hidden_field :train_id, value: review.train.id %>
+    </div>
+
+    <div>
+      <%= form.label :rating, style: "display: block" %>
+      <%= form.number_field :rating, in: 1..5 %>
+    </div>
+
+    <div>
+      <%= form.label :feedback, style: "display: block" %>
+      <%= form.text_field :feedback %>
+    </div>
+  <% end %>
 
   <div>
     <%= form.submit %>

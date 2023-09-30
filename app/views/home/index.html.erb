@@ -17,6 +17,7 @@
     <%= link_to 'View Profile', passenger_path(current_user.id) %>
     <%= link_to 'View Trains', viewTrains_path %>
     <%= link_to "Logout", logout_path %>
+    <%= link_to "View Trips", viewTrips_path(current_user.id) %>
   <% end %>  
 <% else %>
   <%= link_to "Signup", signup_path %> or

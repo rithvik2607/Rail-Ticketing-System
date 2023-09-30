@@ -24,7 +24,7 @@
         <td><%= trip.train.arrival_time.strftime('%H:%M %p') %></td> <!-- Format time as HH:MM AM/PM -->
         <td><%= trip.train.ticket_price %></td>
         <% if Time.now < DateTime.new(trip.train.departure_date.year, trip.train.departure_date.month, trip.train.departure_date.day, trip.train.departure_time.hour, trip.train.departure_time.min, trip.train.departure_time.sec)  %>
-          <td><%= button_to "Cancel this ticket", @ticket, method: :delete %></td>
+          <td><%= button_to "Cancel this ticket", ticket_path(trip), method: :delete %></td>
         <% end %>
       </tr>
     <% end %>

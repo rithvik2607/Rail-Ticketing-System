@@ -4,10 +4,12 @@
 
 <div id="tickets">
   <% @tickets.each do |ticket| %>
+    <% if ticket.passenger.id == current_user.id %>
     <%= render ticket %>
     <p>
       <%= link_to "Show this ticket", ticket %>
     </p>
+    <% end %>
   <% end %>
 </div>
 

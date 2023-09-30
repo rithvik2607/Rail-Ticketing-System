@@ -1,2 +1,1 @@
-admin = Admin.create!(:username => "admin123", :name =>"Admin", :email =>"admin@gmail.com", :password =>"admin123", :phonenumber=>"98
-76543210",:address=>"1234 Admin St", :credit_card_number => "12345")
+admin = Passenger.create!(:name =>"Admin", :email =>"admin@gmail.com", :password =>"admin123", :phonenumber=>"9876543210",:address=>"1234 Admin St", :credit_card_number => "12345", :is_admin =>true)

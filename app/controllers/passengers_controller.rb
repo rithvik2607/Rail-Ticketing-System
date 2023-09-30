@@ -1,14 +1,32 @@
 class PassengersController < ApplicationController
+  helper_method :authorized_user?
   skip_before_action :authorized, only: [:new, :create]
   before_action :set_passenger, only: %i[ show edit update destroy ]
+  # before_action :authorized!, except: [:index]
 
   # GET /passengers or /passengers.json
   def index
-    @passengers = Passenger.all
+    if @current_user.is_admin
+      @passengers = Passenger.all
+    else
+      respond_to do |format|
+        format.html { redirect_to '/' }
+        format.json { head :no_content }
+      end
+    end
+    # @passengers = Passenger.all
   end
 
   # GET /passengers/1 or /passengers/1.json
   def show
+    if @current_user.is_admin
+    
+    elsif !authorized_user?(params[:id])
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Not authorized to view another user" }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /passengers/new
@@ -18,6 +36,13 @@ class PassengersController < ApplicationController
 
   # GET /passengers/1/edit
   def edit
+    if @current_user.is_admin
+    elsif !authorized_user?(params[:id])
+      respond_to do |format|
+        format.html { redirect_to @passenger, notice: "Not authorized to edit another user" }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /passengers or /passengers.json
@@ -50,13 +75,28 @@ class PassengersController < ApplicationController
 
   # DELETE /passengers/1 or /passengers/1.json
   def destroy
-    session[:user_id] = nil
-    @passenger.destroy
-    
-    respond_to do |format|
-      format.html { redirect_to logout_path, notice: "Passenger was successfully destroyed." }
-      format.json { head :no_content }
+    if @passenger.is_admin
+      respond_to do |format|
+        format.html { redirect_to @passenger, notice: "Admin cannnot be deleted" }
+        format.json { head :no_content }
+      end
+    elsif @current_user.is_admin
+      @passenger.destroy
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Passenger was successfully destroyed by admin." }
+        format.json { head :no_content }
+      end
+
+    else
+      session[:user_id] = nil
+      @passenger.destroy
+      
+      respond_to do |format|
+        format.html { redirect_to logout_path, notice: "Passenger was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
+    
   end
 
   def viewTrains
@@ -73,6 +113,10 @@ class PassengersController < ApplicationController
     @res
   end
 
+  def authorized_user?(id)
+    logged_in? && @current_user == Passenger.find_by_id(id) 
+  end
+  
   def viewTrips
     ticketController = TicketsController.new
     reviewController = ReviewsController.new
@@ -86,7 +130,11 @@ class PassengersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_passenger
-      @passenger = Passenger.find(params[:id])
+      if !Passenger.exists?(params[:id])
+        @passenger = Passenger.find(@current_user.id)
+      else
+        @passenger = Passenger.find(params[:id])
+      end
     end
 
     # Only allow a list of trusted parameters through.

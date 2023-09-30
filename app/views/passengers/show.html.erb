@@ -2,11 +2,11 @@
 
 <%= render @passenger %>
 
-<% flash.each do |type, msg| %>
-  <div>
-    <%= msg %>
-  </div>
-<% end %>
+<%# <% flash.each do |type, msg| %> 
+  <%# <div> %>
+    <%# <%= msg %> 
+  <%# </div> %>
+<%# <% end %> 
 
 <div>
   <%= link_to "Edit this passenger", edit_passenger_path(@passenger) %>

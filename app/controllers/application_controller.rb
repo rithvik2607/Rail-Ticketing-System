@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
 
   def current_user
-    if session[:is_admin]
-      @current_user = Admin.find(session[:user_id])
-    elsif session[:user_id]
+    # if session[:is_admin]
+    #   @current_user = Admin.find(session[:user_id])
+    if session[:user_id]
       @current_user ||= Passenger.find(session[:user_id])
     else
       @current_user = nil

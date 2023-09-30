@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  helper_method :authorized_user?
   helper_method :current_user
   before_action :authorized
   helper_method :logged_in?
@@ -19,5 +20,9 @@ class ApplicationController < ActionController::Base
 
   def authorized
     redirect_to root_path unless logged_in?
+  end
+
+  def authorized_user?(id)
+    logged_in? && @current_user == Passenger.find_by_id(id) 
   end
 end

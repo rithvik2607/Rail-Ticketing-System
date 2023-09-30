@@ -48,7 +48,7 @@ class PassengersController < ApplicationController
   # POST /passengers or /passengers.json
   def create
     @passenger = Passenger.new(passenger_params)
-
+    @passenger.is_admin = false
     respond_to do |format|
       if @passenger.save
         format.html { redirect_to passenger_url(@passenger), notice: "Passenger was successfully created." }
@@ -100,31 +100,16 @@ class PassengersController < ApplicationController
   end
 
   def viewTrains
-    time = Time.now
     trainController = TrainsController.new
-    trains = trainController.index
-    @res = []
-    for i in 1 ... trains.length
-      combined_datetime = DateTime.new(trains[i].departure_date.year, trains[i].departure_date.month, trains[i].departure_date.day, trains[i].departure_time.hour, trains[i].departure_time.min, trains[i].departure_time.sec)
-      if combined_datetime > time and trains[i].number_of_seats_left > 0
-        @res.append(trains[i])
-      end
-    end
-    @res
-  end
-
-  def authorized_user?(id)
-    logged_in? && @current_user == Passenger.find_by_id(id) 
+    @res = trainController.passengerTrains
   end
   
   def viewTrips
-    ticketController = TicketsController.new
-    reviewController = ReviewsController.new
-    tickets = ticketController.index
-    reviews = reviewController.index
+    tickets = Ticket.all
+    reviews = Review.all
     @trips = tickets.select { |ticket| ticket.passenger_id == current_user.id }
     @reviews = reviews.select { |review| review.passenger_id == current_user.id}
-    @reviews.collect { |review| puts review.train_id }
+    
   end
 
   private

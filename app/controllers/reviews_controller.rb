@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  helper_method :authorized_user?
   before_action :set_review, only: %i[ show edit update destroy ]
 
   # GET /reviews or /reviews.json
@@ -20,6 +21,13 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1/edit
   def edit
+    if @current_user.is_admin || authorized_user?(@review.passenger.id)
+    else
+      respond_to do |format|
+        format.html { redirect_to reviews_path, notice: "Not authorized to edit another user's reviews" }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /reviews or /reviews.json
@@ -54,31 +62,50 @@ class ReviewsController < ApplicationController
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
     # update rating for train
-    review = Review.find(@review.id)
-    @train = Train.find(params[:review][:train_id])
-    reviews = Review.where(train_id: @review.train.id)
-    ratingSum = @review.rating + reviews.sum("rating") - review.rating
-    @train.rating = ratingSum / (reviews.size)
-    @train.save
+    if @current_user.is_admin || authorized_user?(@review.passenger.id)
+      review = Review.find(@review.id)
+      @train = Train.find(params[:review][:train_id])
+      reviews = Review.where(train_id: @review.train.id)
+      ratingSum = @review.rating + reviews.sum("rating") - review.rating
+      @train.rating = ratingSum / (reviews.size)
+      @train.save
 
-    respond_to do |format|
-      if @review.update(review_params)
-        format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
-        format.json { render :show, status: :ok, location: @review }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @review.update(review_params)
+          format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
+          format.json { render :show, status: :ok, location: @review }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @review.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Not authorized to update another user's reviews" }
+        format.json { head :no_content }
       end
     end
   end
 
+  # def passengerReviews
+  #   reviews = Review.all
+  #   reviews = reviews.select { |review| review.passenger_id == current_user.id}
+  # end
+
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
-    @review.destroy
+    if @current_user.is_admin || authorized_user?(@review.passenger.id)
+      @review.destroy
 
-    respond_to do |format|
-      format.html { redirect_to reviews_url, notice: "Review was successfully destroyed." }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to reviews_url, notice: "Review was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Not authorized to update another user's reviews" }
+        format.json { head :no_content }
+      end
     end
   end
 

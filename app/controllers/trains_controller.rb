@@ -1,22 +1,54 @@
 class TrainsController < ApplicationController
+  helper_method :authorized_user?
   before_action :set_train, only: %i[ show edit update destroy ]
 
   # GET /trains or /trains.json
   def index
-    @trains = Train.all
+    if @current_user.is_admin
+      @trains = Train.all
+    else
+      respond_to do |format|
+        format.html { redirect_to '/' }
+        format.json { head :no_content }
+      end
+    end
+    
   end
 
   # GET /trains/1 or /trains/1.json
   def show
+    if @current_user.is_admin
+    
+    else
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Not authorized to view all trains." }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /trains/new
   def new
-    @train = Train.new
+    if @current_user.is_admin
+      @train = Train.new
+    else
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Not authorized to create new train" }
+        format.json { head :no_content }
+      end
+    end
+    
   end
 
   # GET /trains/1/edit
   def edit
+    if @current_user.is_admin
+    else
+      respond_to do |format|
+        format.html { redirect_to viewTrains_path, notice: "Not authorized to edit trains" }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /trains or /trains.json
@@ -50,13 +82,33 @@ class TrainsController < ApplicationController
     end
   end
 
+  def passengerTrains
+    res = []
+    trains = Train.all
+    
+    for i in 1 ... trains.length
+      combined_datetime = DateTime.new(trains[i].departure_date.year, trains[i].departure_date.month, trains[i].departure_date.day, trains[i].departure_time.hour, trains[i].departure_time.min, trains[i].departure_time.sec)
+      if combined_datetime > Time.now and trains[i].number_of_seats_left > 0
+        res.append(trains[i])
+      end
+    end
+    res
+  end
+
   # DELETE /trains/1 or /trains/1.json
   def destroy
-    @train.destroy
-
-    respond_to do |format|
-      format.html { redirect_to trains_url, notice: "Train was successfully destroyed." }
-      format.json { head :no_content }
+    if current_user.is_admin
+      @train.destroy
+    
+      respond_to do |format|
+        format.html { redirect_to trains_url, notice: "Train was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Not authorized to delete trains." }
+        format.json { head :no_content }
+      end
     end
   end
 

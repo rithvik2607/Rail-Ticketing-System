@@ -4,12 +4,12 @@
 
 <div id="reviews">
   <% @reviews.each do |review| %>
-    <% if review.passenger == current_user %>
+    <%# <% if review.passenger == current_user %>
         <%= render review %>
         <p>
           <%= link_to "Show this review", review %>
         </p>
-    <% end %>
+    <%# <% end %>   
   <% end %>
 </div>
 

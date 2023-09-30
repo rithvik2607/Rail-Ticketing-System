@@ -1,14 +1,29 @@
 class TicketsController < ApplicationController
+  helper_method :authorized_user?
   before_action :set_ticket, only: %i[ show edit update destroy ]
   before_action :authorized
 
   # GET /tickets or /tickets.json
   def index
-    @tickets = Ticket.all
+    if @current_user.is_admin
+      @tickets = Ticket.all
+    else
+      respond_to do |format|
+        format.html { redirect_to '/' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /tickets/1 or /tickets/1.json
   def show
+    if @current_user.is_admin || authorized_user?(@ticket.passenger.id)
+    else
+      respond_to do |format|
+        format.html { redirect_to '/', notice: "Not authorized to view another user's tickets" }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /tickets/new
@@ -21,8 +36,8 @@ class TicketsController < ApplicationController
   end
 
   # GET /tickets/1/edit
-  def edit
-  end
+  # def edit
+  # end
   
 
   # POST /tickets or /tickets.json
@@ -62,6 +77,11 @@ class TicketsController < ApplicationController
       end
     end
   end
+
+  # def passengerTickets
+  #   tickets = Ticket.all
+  #   trips = tickets.select { |ticket| ticket.passenger_id == current_user.id }
+  # end
 
   # DELETE /tickets/1 or /tickets/1.json
   def destroy

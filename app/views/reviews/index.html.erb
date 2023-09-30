@@ -4,11 +4,13 @@
 
 <div id="reviews">
   <% @reviews.each do |review| %>
-    <%= render review %>
-    <p>
-      <%= link_to "Show this review", review %>
-    </p>
+    <% if review.passenger == current_user %>
+        <%= render review %>
+        <p>
+          <%= link_to "Show this review", review %>
+        </p>
+    <% end %>
   <% end %>
 </div>
 
-<%= link_to "New review", new_review_path %>
+<%#= link_to "New review", new_review_path %>

@@ -65,6 +65,10 @@
     <%= form.number_field :number_of_seats_left %>
   </div>
 
+  <div class="field">
+    <%= form.hidden_field :rating, value: 0.0 %>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>

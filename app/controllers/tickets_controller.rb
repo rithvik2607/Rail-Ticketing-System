@@ -25,7 +25,8 @@ class TicketsController < ApplicationController
   end
 
   def viewTrips
-    
+    tickets = Ticket.all
+    @trips = tickets.select { |ticket| ticket.passenger_id == current_user.id }
   end
 
   # POST /tickets or /tickets.json

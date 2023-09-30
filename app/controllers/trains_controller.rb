@@ -22,6 +22,9 @@ class TrainsController < ApplicationController
   # POST /trains or /trains.json
   def create
     @train = Train.new(train_params)
+    if Train.find_by(train_number: @train.train_number)
+      @train.rating = Train.find_by(train_number: @train.train_number).rating
+    end
 
     respond_to do |format|
       if @train.save

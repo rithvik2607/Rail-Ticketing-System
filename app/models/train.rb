@@ -1,5 +1,7 @@
 class Train < ApplicationRecord
   has_many :tickets
+  has_many :reviews
+  
   validates :departure_time, presence: true
   validates :arrival_time, presence: true
   validate :validate_time_format

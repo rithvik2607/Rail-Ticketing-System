@@ -13,6 +13,9 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
+    if @train.nil?
+      @train = Train.find(params[:train_id])
+    end
   end
 
   # GET /reviews/1/edit
@@ -22,6 +25,20 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
     @review = Review.new(review_params)
+
+    # link review to train and passenger
+    @review.train = Train.find(params[:review][:train_id])
+    @review.passenger = current_user
+    # update rating for train
+    @train = Train.find(params[:review][:train_id])
+    if Review.where(train_id: params[:review][:train_id])
+      reviews = Review.where(train_id: params[:review][:train_id])
+      ratingSum = @review.rating + reviews.sum("rating")
+      @train.rating = ratingSum / (reviews.size + 1)
+    else
+      @train.rating = @review.rating
+    end
+    @train.save
 
     respond_to do |format|
       if @review.save
@@ -36,6 +53,14 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
+    # update rating for train
+    review = Review.find(@review.id)
+    @train = Train.find(params[:review][:train_id])
+    reviews = Review.where(train_id: @review.train.id)
+    ratingSum = @review.rating + reviews.sum("rating") - review.rating
+    @train.rating = ratingSum / (reviews.size)
+    @train.save
+
     respond_to do |format|
       if @review.update(review_params)
         format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }

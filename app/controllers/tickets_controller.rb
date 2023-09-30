@@ -23,16 +23,12 @@ class TicketsController < ApplicationController
   # GET /tickets/1/edit
   def edit
   end
-
-  def viewTrips
-    tickets = Ticket.all
-    @trips = tickets.select { |ticket| ticket.passenger_id == current_user.id }
-  end
+  
 
   # POST /tickets or /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-    puts "doing work"
+    
     # create a random confirmation number using a random string of length 10
     @ticket.confirmation_number = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
     # link ticket to train and passenger

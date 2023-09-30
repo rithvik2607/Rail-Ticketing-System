@@ -10,6 +10,7 @@
       <th>Arrival Date</th>
       <th>Arrival Time</th>
       <th>Ticket Price</th>
+      <th>Rating</th>
       <th>Action</th>
     </tr>
     <% @trips.each do |trip| %>
@@ -23,8 +24,22 @@
         <td><%= trip.train.arrival_date %></td>
         <td><%= trip.train.arrival_time.strftime('%H:%M %p') %></td> <!-- Format time as HH:MM AM/PM -->
         <td><%= trip.train.ticket_price %></td>
+        <td><%= trip.train.rating %></td>
         <% if Time.now < DateTime.new(trip.train.departure_date.year, trip.train.departure_date.month, trip.train.departure_date.day, trip.train.departure_time.hour, trip.train.departure_time.min, trip.train.departure_time.sec)  %>
-          <td><%= button_to "Cancel this ticket", ticket_path(trip), method: :delete %></td>
+          <td><%= button_to "Cancel this ticket", ticket_path(trip), method: :delete %>
+          <% review = @reviews.find { |review| review.train_id == trip.train_id } %>
+          <% if review %>
+            <%= button_to "Edit review", edit_review_path(review), method: :get %>
+          <% else %>
+            <%= button_to "Write a review", makeReview_path(:train_id => trip.train.id), method: :get %></td>
+          <% end %>
+        <% else %>
+          <td><% review = @reviews.find { |review| review.train_id == trip.train_id } %>
+          <% if review %>
+            <%= button_to "Edit review", edit_review_path(review), method: :get %>
+          <% else %>
+            <%= button_to "Write a review", makeReview_path(:train_id => trip.train.id), method: :get %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

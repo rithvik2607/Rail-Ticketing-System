@@ -86,7 +86,7 @@ class TrainsController < ApplicationController
     res = []
     trains = Train.all
     
-    for i in 1 ... trains.length + 1
+    for i in 0 ... trains.length
       combined_datetime = DateTime.new(trains[i].departure_date.year, trains[i].departure_date.month, trains[i].departure_date.day, trains[i].departure_time.hour, trains[i].departure_time.min, trains[i].departure_time.sec)
       if combined_datetime > Time.now and trains[i].number_of_seats_left > 0
         res.append(trains[i])

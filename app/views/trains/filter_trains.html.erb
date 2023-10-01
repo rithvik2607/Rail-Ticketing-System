@@ -1,0 +1,15 @@
+<%= form_for :filter, url: filter_trains_path, method: :get do |f| %>
+  <div class="field">
+    <%= f.label :departure_station %>
+    <%= f.text_field :departure_station %>
+  </div>
+
+  <div class="field">
+    <%= f.label :termination_station %>
+    <%= f.text_field :termination_station %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Filter Trains" %>
+  </div>
+<% end %>

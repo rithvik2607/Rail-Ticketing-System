@@ -54,6 +54,7 @@ class TrainsController < ApplicationController
   # POST /trains or /trains.json
   def create
     @train = Train.new(train_params)
+    @train.rating = 0
     if Train.find_by(train_number: @train.train_number)
       @train.rating = Train.find_by(train_number: @train.train_number).rating
     end
@@ -111,6 +112,29 @@ class TrainsController < ApplicationController
       end
     end
   end
+
+  def filter_trains
+    @filtered_trains = []
+    
+    if params[:departure_station] && params[:termination_station] && params[:rating]==''
+      #If only depart and termin and no rating
+      @filtered_trains = Train.where(departure_station: params[:departure_station], termination_station: params[:termination_station])
+    end
+    if params[:rating] && params[:departure_station]=='' && params[:termination_station]==''
+      #If only rating
+      @filtered_trains = Train.where(rating: params[:rating]..)
+    end
+    if params[:rating]!='' && params[:departure_station]!='' && params[:termination_station]!=''
+      #When all 3 provided
+      @filtered_trains = Train.where(departure_station: params[:departure_station], termination_station: params[:termination_station], rating: params[:rating]..)
+    end
+
+  end
+
+  # def filtered_trains
+    
+  # end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

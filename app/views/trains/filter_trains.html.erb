@@ -1,0 +1,66 @@
+<%= form_tag(filter_trains_path, method: :get) do %>
+  <div class="field">
+    <%= label_tag 'departure_station', 'Departure Station' %>
+    <%= text_field_tag 'departure_station' %>
+  </div>
+
+  <div class="field">
+    <%= label_tag 'termination_station', 'Termination Station' %>
+    <%= text_field_tag 'termination_station' %>
+  </div>
+  <div class="field">
+    <%= label_tag 'rating', 'Rating' %>
+    <%= number_field_tag 'rating' %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag 'Filter Trains' %>
+  </div>
+<% end %>
+
+
+<h1>Filtered Trains</h1>
+<%# <%= render @filtered_trains%>
+<% if @filtered_trains.any? %>
+  <table class="table" border="1">
+    <thead>
+      <tr>
+        <th>Train Number</th>
+        <th>Departure Station</th>
+        <th>Termination Station</th>
+        <th>Departure date</th>
+        <th>Departure time</th>
+        <th>Arrival date</th>
+        <th>Arrival time</th>
+        <th>Ticket price</th>
+        <th>Train capacity</th>
+        <th>Number of seats left</th>
+        <th>Rating</th>
+        <th>Action</th>
+
+        <!-- Add other train attributes here -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @filtered_trains.each do |train| %>
+        <tr>
+          <td><%= train.train_number %></td>
+          <td><%= train.departure_station %></td>
+          <td><%= train.termination_station %></td>
+          <td><%= train.departure_date %></td>
+          <td><%= train.departure_time.strftime('%H:%M') %></td>
+          <td><%= train.arrival_date %></td>
+          <td><%= train.arrival_time.strftime('%H:%M') %></td>
+          <td><%= train.ticket_price %></td>
+          <td><%= train.train_capacity %></td>
+          <td><%= train.number_of_seats_left %></td>
+          <td><%= train.rating %></td>
+          <td><%= link_to 'Book', new_ticket_path(:train_id => train.id) %></td>
+          <!-- Add other train attributes here -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No trains match the specified criteria.</p>
+<% end %>

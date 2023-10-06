@@ -46,3 +46,10 @@ In our application admin is treated as a passenger with additional privileges, h
 2. Select "View Trips"
 3. Select "Edit Review"
 4. Select "Delete this Review"
+
+## To filter Trains and Reviews
+1. Login using credentials
+2. Select "Filter Trains" or "Filter Reviews"
+3. Fill in the parameters by which you want to filter the data
+4. Select "Filter Trains" or "Filter Reviews" button
+5. The results will be displayed in a table

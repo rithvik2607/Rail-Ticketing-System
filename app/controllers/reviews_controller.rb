@@ -87,10 +87,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # def passengerReviews
-  #   reviews = Review.all
-  #   reviews = reviews.select { |review| review.passenger_id == current_user.id}
-  # end
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
@@ -106,6 +102,22 @@ class ReviewsController < ApplicationController
         format.html { redirect_to '/', notice: "Not authorized to update another user's reviews" }
         format.json { head :no_content }
       end
+    end
+  end
+
+  def filter_reviews
+    @filtered_reviews = []
+    
+    if params[:name] && params[:train_number]
+      @filtered_reviews = Review.joins(:passenger, :train).where(passenger: { name: params[:name] }, train: { train_number: params[:train_number] })
+    end  
+    if params[:name]=='' && params[:train_number]!=''
+      required_train = Train.where(train_number: params[:train_number])
+      @filtered_reviews = Review.where(train: required_train)
+    end
+    if params[:name]!='' && params[:train_number]==''
+      required_passenger = Passenger.where(name: params[:name])
+      @filtered_reviews = Review.where(passenger: required_passenger)
     end
   end
 

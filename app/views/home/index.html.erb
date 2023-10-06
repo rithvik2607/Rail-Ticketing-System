@@ -14,7 +14,7 @@
     <%= link_to "View Trips", viewTrips_path %><br>
     <%= link_to "View All Reviews", reviews_path %><br>
     <%= link_to 'Filter Trains', filter_trains_trains_path %><br>
-
+    <%= link_to 'Filter Reviews', filter_reviews_path %><br>
     <%= link_to "Logout", logout_path %> 
   <% else %>
     <%# <%= current_user.inspect %>
@@ -27,6 +27,7 @@
     <%= link_to "View Trips", viewTrips_path %><br>
     <%= link_to "View All Reviews", reviews_path %><br>
     <%= link_to 'Filter Trains', filter_trains_trains_path %><br>
+    <%= link_to 'Filter Reviews', filter_reviews_path %><br>
     <%= link_to "Logout", logout_path %> 
   <% end %>
   

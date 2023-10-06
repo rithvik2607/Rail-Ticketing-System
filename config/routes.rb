@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'makeReview/:train_id', to: "reviews#new", as: 'makeReview'
   get 'editReview/:review_id', to: "reviews#edit", as: 'editReview'
   get 'filter_trains', to: "trains#filter_trains", as: 'filter_trains'
+  get 'filter_reviews', to: "reviews#filter_reviews", as: 'filter_reviews'
   # get 'filtered_trains', to: "trains#filtered_trains", as: 'filtered_trains'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

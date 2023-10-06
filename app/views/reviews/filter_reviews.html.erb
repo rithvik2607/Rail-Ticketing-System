@@ -1,0 +1,55 @@
+<%= form_tag(filter_reviews_path, method: :get) do %>
+  <div class="field">
+    <%= label_tag 'name', 'Name of the user' %>
+    <%= text_field_tag 'name' %>
+  </div>
+
+  <div class="field">
+    <%= label_tag 'train_number', 'Train Number' %>
+    <%= text_field_tag 'train_number' %>
+  </div>
+  
+  <div class="actions">
+    <%= submit_tag 'Filter Reviews' %>
+  </div>
+<% end %>
+
+
+<h1>Filtered Reviews</h1>
+<% if @filtered_reviews.any? %>
+  
+  <% @filtered_reviews.each do |review| %>
+    <p>
+      <strong>Passenger name:</strong>
+      <%= review.passenger.name %>
+    </p>
+    <p>
+      <strong>Passenger email ID:</strong>
+      <%= review.passenger.email %>
+    </p>
+
+    <p>
+      <strong>Train Number:</strong>
+      <%= review.train.train_number %>
+    </p>
+
+    <p>
+      <strong>Train Details:</strong>
+      <%= review.train.departure_station %> - <%= review.train.termination_station %>
+    </p>
+
+    <p>
+      <strong>Rating:</strong>
+      <%= review.rating %>
+    </p>
+
+    <p>
+      <strong>Feedback:</strong>
+      <%= review.feedback %>
+    </p>
+    <br>
+  <% end %>
+
+<% else %>
+  <p>No reviews match the specified criteria.</p>
+<% end %>
